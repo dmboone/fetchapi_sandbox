@@ -5,54 +5,40 @@ document.getElementById('button3').addEventListener('click', getExternal);
 // Get local text file data
 function getText(){
     fetch('test.txt') // example of using the fetch api
-    .then(function(res){
-        return res.text(); // we use .text for a text file; this returns a promise
-    })
-    .then(function(data){ // so we use .then again to extract the actual text
+    .then(res => res.text()) // we use .text for a text file; this returns a promise
+    .then(data => { // so we use .then again to extract the actual text
         console.log(data);
         document.getElementById('output').innerHTML = data;
     })
-    .catch(function(err){ // when using fetch you would need to check for an error in the first .then
-        console.log(err); // and throw the error yourself in order for .catch to run
-    });                   // see example at bottom of page
+    .catch(err => console.log(err)); // when using fetch you would need to check for an error in the first .then
+                                    // and throw the error yourself in order for .catch to run
+                                    // see example at bottom of page
 }
 
 // Get local json data
 function getJson(){
     fetch('posts.json')
-    .then(function(res){
-        return res.json(); // notice we use .json here since it's a json file
-    })
-    .then(function(data){
+    .then(res => res.json()) // notice we use .json here since it's a json file
+    .then(data => {
         console.log(data);
         let output = '';
-        data.forEach(function(post){
-            output += `<li>${post.title}</li>`;
-        });
+        data.forEach(post => output += `<li>${post.title}</li>`);
         document.getElementById('output').innerHTML = output;
     })
-    .catch(function(err){
-        console.log(err);
-    });
+    .catch(err => console.log(err));
 }
 
 // Get from external API
 function getExternal(){
     fetch('https://api.github.com/users')
-    .then(function(res){
-        return res.json();
-    })
-    .then(function(data){
+    .then(res => res.json())
+    .then(data => {
         console.log(data);
         let output = '';
-        data.forEach(function(user){
-            output += `<li>${user.login}</li>`;
-        });
+        data.forEach(user => output += `<li>${user.login}</li>`);
         document.getElementById('output').innerHTML = output;
     })
-    .catch(function(err){
-        console.log(err);
-    });
+    .catch(err => console.log(err));
 }
 
 /**
